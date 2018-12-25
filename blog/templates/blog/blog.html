@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="Bruno Carballo">
-    <title>Home-Bruno</title>
+    <title>{{ blog.title }}</title>
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
@@ -38,9 +38,9 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav ml-auto">
-                    <a class="nav-item nav-link active" href="{% url 'home'%}">Home</a>
+                    <a class="nav-item nav-link" href="{% url 'home'%}">Home</a>
                     <a class="nav-item nav-link" href="https://github.com/godinenbicicleta">GitHub</a>
-                    <a class="nav-item nav-link" href="{% url 'allblogs' %}">Blog</a>
+                    <a class="nav-item nav-link active" href="{% url 'allblogs' %}">Blog</a>
                     <a class="nav-item nav-link" href="{% static 'cv.pdf' %}">Resume</a>
                 </div>
             </div>
@@ -48,40 +48,17 @@
     </header>
 
     <main role="main">
+        <div class="container">
+            <h1 class="text-center pt-3">{{ blog.title }}</h1>
+            <hr/>
+	{{ blog.pub_date }}
+	<br>
+	<img src="{{ blog.image.url }}">
+	<br>
+	<br>
+	<p>{{ blog.body }}<p>
 
-        <section class="jumbotron text-center">
-            <div class="container">
-                <h1 class="jumbotron-heading">Hi, I'm Bruno</h1>
-                <p class="lead text-muted">I'm constantly trying to learn new things, this website is me trying to learn 
-                    Django as well as some HTML and CSS. I like riding my bike and doing data analysis.
-                </p>
-                <p>
-                    <a href="#" class="btn btn-dark my-2">Job Experience</a>
-                    <a href="#" class="btn btn-dark my-2">Projects</a>
-                </p>
-                <img src="{% static 'profile_picture.jpg'  %}" height=300 width=300/>
-            </div>
-        </section>
-
-        <div class="album py-5 bg-light">
-            <div class="container">
-
-                <div class="row">
-
-                    {%  for job in jobs.all %}
-                    <div class="col-md-4">
-                        <div class="card mb-4 shadow-sm">
-                            <img src="{{ job.image.url }}"/>
-                            <div class="card-body">
-                                <p class="card-text">{{ job.summary }}</p>
-                            </div>
-                        </div>
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
         </div>
-
     </main>
 
     <footer class="text-muted">
