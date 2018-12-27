@@ -1,39 +1,22 @@
-    {% extends 'jobs/base.html' %}
-    {% block content %}
-    <main role="main">
-
-        <section class="jumbotron text-center">
-            <div class="container">
-                <h1 class="jumbotron-heading">Hi, I'm Bruno</h1>
-                <p class="lead text-muted">I'm constantly trying to learn new things, this website is me trying to learn 
-                    Django as well as some HTML and CSS. I like riding my bike and doing data analysis.
-                </p>
-                <p>
-                    <a href="#" class="btn btn-dark my-2">Job Experience</a>
-                    <a href="#" class="btn btn-dark my-2">Projects</a>
-                </p>
-                <img src="{% static 'profile_picture.jpg'  %}" height=300 width=300/>
+{% extends 'jobs/base.html' %}
+{% block content%}
+      <main>
+        <section class="intro container">
+          <div class="intro-box">
+          <h1>Hi I'm Bruno</h1>
+            <p>I'm constantly trying to learn new things, this website is me trying to learn Django as well as some HTML and CSS. I like riding my bike and doing data analysis.</p>
+            <div class="goto">
+            <a href="#">Projects</a>
+            <a href="#">Job Experience</a>
             </div>
+          </div>
+          <img alt="profile-picture" src="{% static 'profile_picture.jpg' %}">
         </section>
+        <hr class="container">
+        <section class="container jobs">
+          {% for job in jobs.all %}
+          {% endfor %}
+        </section>
+      </main>
 
-        <div class="album py-5 bg-light">
-            <div class="container">
-
-                <div class="row">
-
-                    {%  for job in jobs.all %}
-                    <div class="col-md-4">
-                        <div class="card mb-4 shadow-sm">
-                            <img src="{{ job.image.url }}"/>
-                            <div class="card-body">
-                                <p class="card-text">{{ job.summary }}</p>
-                            </div>
-                        </div>
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
-
-    </main>
-    {% endblock %}
+{% endblock %}
