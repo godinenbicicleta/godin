@@ -6,7 +6,9 @@
   -lightblue:#8DC9FF;
   --bgcolor:#f7fbff;
   --margin:15px;  
+  --tmargin:calc(var(--margin) * 3);
   --dmargin:calc(var(--margin) * 2);
+  --minimargin:5px;
   --gray:#575757;
   }
 
@@ -38,6 +40,12 @@ h1 {
   font-weight: 400;
   font-size: 60px;
   }
+
+
+#blog-header {
+  font-size:35px;
+  margin-bottom:var(--tmargin);
+}
 
 p {
   line-height:120%;
@@ -198,5 +206,13 @@ p {
 hr.container {
   margin-top:var(--dmargin);
   margin-bottom:var(--dmargin);
+  border-top:1px solid rgba(0,0,0,.1);
   }
+
+hr {
+  margin-top: var(minimargin);
+  margin-bottom:var(--dmargin);
+  border-top:1px solid rgba(0,0,0,.1);
+  }
+
 

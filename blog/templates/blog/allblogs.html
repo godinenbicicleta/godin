@@ -1,19 +1,14 @@
   {% extends 'jobs/base.html' %}
   {% block content %}
-    <main role="main">
+    <main>
         <div class="container">
-            <h1 class="text-center pt-3">Welcome to my Blog</h1>
-            <br>
-            <br>
+            <h1 id="blog-header">Welcome to my Blog</h1>
             <h2>Latest Posts</h2>
-            <hr/>
+            <hr>
 	{% for blog in blogs.all %}
 	<a href="{% url 'detail' blog.id %}"><h3>{{ blog.title }}</h3></a>
 	{{ blog.pub_date }}
-	<br>
 	<img src="{{ blog.image.url }}">
-	<br>
-	<br>
 	<p>{{ blog.summary }} ...<p>
 
 	{% endfor %}
