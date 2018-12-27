@@ -114,6 +114,7 @@ p {
 
 .navigation .nav-left {
   margin-right:auto; 
+  color: var(--darkblue);
   }
 
 .navigation a:hover, .goto a:hover {
