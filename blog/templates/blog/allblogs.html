@@ -8,7 +8,9 @@
 	{% for blog in blogs.all %}
 	<a href="{% url 'detail' blog.id %}"><h3>{{ blog.title }}</h3></a>
 	{{ blog.pub_date }}
+  {% if blog.image %}
 	<img src="{{ blog.image.url }}">
+  {% endif %}
 	<p>{{ blog.summary }} ...<p>
 
 	{% endfor %}

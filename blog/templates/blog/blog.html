@@ -6,10 +6,14 @@
             <hr/>
 	{{ blog.pub_date }}
 	<br>
+  {%if blog.image %}
 	<img src="{{ blog.image.url }}">
+  {% endif %}
 	<br>
 	<br>
-	<p>{{ blog.body }}<p>
+	<div class="markdown">
+  {{ blog.body_md | safe }}
+  <div>
 
         </div>
     </main>
