@@ -117,6 +117,10 @@ p {
   color: var(--darkblue);
   }
 
+a.active {
+  color:var(--darkblue);
+  }
+
 .navigation a:hover, .goto a:hover {
   color: var(--grey) ;
   border-bottom-color:var(--darkblue); 

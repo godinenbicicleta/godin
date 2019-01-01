@@ -16,8 +16,10 @@
         <div class="container">
         <nav class="navigation">
           <span class="nav-left">Bruno Carballo</span>
-          <a href="{% url 'home' %}">Home</a>
-          <a href="{% url 'allblogs' %}">Blog</a>
+          {% url 'home' as home_url %}
+          {% url 'allblogs' as blogs_url %}
+          <a href="{% url 'home' %}" {% if request.path == home_url  %} class="active" {% endif %}>Home</a>
+          <a href="{% url 'allblogs' %}" {% if request.path == blogs_url  %} class="active" {% endif %}>Blog</a>
           <a href="https://github.com/godinenbicicleta">GitHub</a>
           <a href="{% static 'cv.pdf'%}">Resume</a>
         </nav>
