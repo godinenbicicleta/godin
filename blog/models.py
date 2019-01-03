@@ -19,3 +19,6 @@ class Blog(models.Model):
     def body_md(self):
        return  markdown.markdown(self.body, extensions =
        ['fenced_code','codehilite'])
+
+    class Meta:
+        ordering = ["-pub_date"]
