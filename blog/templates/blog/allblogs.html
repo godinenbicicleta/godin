@@ -1,19 +1,24 @@
-  {% extends 'jobs/base.html' %}
-  {% block content %}
-    <main>
-        <div class="container">
-            <h1 id="blog-header">Welcome to my Blog</h1>
-            <h2>Latest Posts</h2>
-            <hr>
-	{% for blog in blogs.all %}
-	<a href="{% url 'detail' blog.id %}"><h3>{{ blog.title }}</h3></a>
-	{{ blog.pub_date }}
-  {% if blog.image %}
-	<img src="{{ blog.image.url }}">
-  {% endif %}
-	<p>{{ blog.summary }} ...<p>
-
-	{% endfor %}
+{% extends 'jobs/base.html' %}
+{% block content %}
+<main>
+  <div class="container">
+    <h1 id="blog-header">Welcome to my Blog</h1>
+    <hr>
+    <div class="grid-container">
+      {% for blog in blogs.all %}
+      <div class = "item">
+        <div class="item-title">
+          <a href="{% url 'detail' blog.id %}">{{ blog.title }}</a>
         </div>
-    </main>
+        <div class="item-pubdate">
+          <p>{{ blog.pub_date }}</p>
+        </div>
+        <div class="item-summary">
+          <p>{{ blog.summary }}</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</main>
 {% endblock %}
