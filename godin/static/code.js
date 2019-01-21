@@ -189,7 +189,7 @@ var startDate = new Date("1790"),
     endDate = new Date("2021");
 
 var margin = {top:0, right:25, bottom:0, left:25}
-  width = 970,
+  width = d3.min([970, displayW-50]),
   height=100;
 
 var svg = d3.select("#slider")
