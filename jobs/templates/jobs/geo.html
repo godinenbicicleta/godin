@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    {% load staticfiles  %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <script type="text/javascript" charset="utf-8">var STATIC_PATH = "{% static './' %}"</script>
+    <link rel="stylesheet" href="{% static 'leaflet.css' %}" />
+    <script src="{% static 'leaflet.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'style_geo.css' %}">
+    <script src="{% static 'd3.min.js' %}"></script>
+    <script src = "{% static 'topojson.min.js' %}"></script>
+ </head>
+  <body>
+	<!--Step navigation UI-->
+		<div class="container">
+      <div id="title">
+        <h2>2019 Top 100 Geospatial Companies and Startups List</h2>
+        <p class="short-description">Recently Geoawesomeness posted a list of the 2019 top 100 Geospatial companies and startups <a href = "http://geoawesomeness.com/2019-top-100-geospatial-companies-startups/" target="_blank">(link)</a> and they were kind enough to share it with me to make this map</p>
+      </div>
+			<div class="wrapper">
+				<div id="box header">
+            <div id="slider"></div>
+				</div>
+
+	<!--Container for visualization-->
+				<div class="box content">
+					<div id="vis-container">
+						<div id="vis-canvas">
+							<!--Draw visualization here-->
+							<div id="map"></div>
+						</div>
+					</div>
+				</div>
+				<div id="tools" class="box sidebar2">
+          <div id="flex-container">
+            <div id="f1">
+              <div class="options">
+                <form action="javascript:handleIt">
+                  <input type="checkbox" name="points" id="show-points" checked>
+                  <span class="input-span">Points</span>
+                  <input type="checkbox" name="cloro" id="show-cloropleth" >
+                  <span class="input-span">Countries</span>
+                </form>
+              </div>
+            </div>
+            <div id="info">
+            <h4>Details</h4>
+            </div>
+          <div>
+        </div>
+			</div>
+		</div>
+		<script src="{% static 'code.js' %}"></script>
+  </body>
+</html>
