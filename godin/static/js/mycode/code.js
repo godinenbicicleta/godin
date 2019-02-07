@@ -1,3 +1,11 @@
+/*
+d3+leaflet: https://bost.ocks.org/mike/leaflet/
+tooltip: https://gist.github.com/siyafrica/5807455bae654ffe89a0
+resposive svg: https://brendansudol.com/writing/responsive-d3
+slider:https://bl.ocks.org/mbostock/6452972
+*/
+
+
 var displayW = document.getElementById("vis-container").clientWidth,
     displayH = document.getElementById("vis-container").clientHeight;
 
@@ -28,15 +36,17 @@ function projectPoint(x, y) {
 
 function main(data){
   drawFeatures(toPoints(data));
-  d3.json(`${STATIC_PATH}paises-topo-simplify.json`).then(drawCountries);
+  //d3.json(`${STATIC_PATH}data/paises-topo-simplify.json`).then(drawCountries);
 }
 
 
 // tooltip vars and functions
 //create info box to show company details
-var infoDiv = d3.select("#info")
+var infoDiv = d3.select("vis-container")
   .append("div")
-  .attr("class", "info-box")
+  .attr("class","info legend")
+  .append("g")
+    .attr("class", "info-box")
 
 
 //Create a tooltip, hidden at the start
@@ -66,22 +76,25 @@ function showTooltip(d) {
     .text(d.properties.name)
     .style("display","flex");
 
-  infoDiv.selectAll("p").remove();
+  infoDiv.selectAll("text").remove();
 
-  infoDiv.selectAll("p").data([d.properties.name, d.properties.location, d.properties.website]).enter().append("p")
+  infoDiv.selectAll("text")
+    .data([d.properties.name, d.properties.location, d.properties.website])
+    .enter()
+    .append("text")
     .style("color","var(--darkblue)")
+    .attr("transform", (d,i)=>`translate(${10},${410+i*20})`)
     .transition()
     .duration(500)
     .text(k=> {
       return k;
-      })
-    .style("display","flex");
+      });
 }
 
 
 
 //load data and draw map
-d3.csv(`${STATIC_PATH}data.csv`).then(main);
+d3.csv(`${STATIC_PATH}/data/data.csv`).then(main);
 
 function drawFeatures(data){
 
@@ -98,7 +111,6 @@ function drawFeatures(data){
 
     update();
 
-    d3.select("#show-points").on("change", update);
     
     function update(){
       //update polygons
@@ -123,10 +135,6 @@ function drawFeatures(data){
         }
         );
 
-      //if box checked, change polygons style
-      if(!d3.select("#show-points").property("checked")){
-        featureElement.classed("nopoints", true).classed("points", false);
-        }
       }
 }
 
@@ -145,7 +153,6 @@ function drawCountries(data){
 
     update();
 
-    d3.select("#show-cloropleth").on("change", update);
     
     function update(){
       //update polygons
@@ -154,10 +161,6 @@ function drawCountries(data){
         .classed("countries", true)
         .classed("nopoints",false);
 
-      //if box unchecked, change polygons style
-      if(!d3.select("#show-cloropleth").property("checked")){
-        featureElement.classed("nopoints", true).classed("countries", false);
-        }
       }
   }
 
@@ -208,6 +211,13 @@ var x = d3.scaleTime()
 var slider = svg.append("g")
     .attr("class", "slider")
     .attr("transform", "translate(" + margin.left + "," + height / 2 + ")");
+
+slider.append("g")
+  .attr("transform", `translate(${-4},${-31})`)
+  .append("text")
+  .text("Filter by Year")
+  .style("font-size","12px")
+
 
 slider.append("line")
     .attr("class", "track")

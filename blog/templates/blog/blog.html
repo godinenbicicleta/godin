@@ -1,20 +1,45 @@
-  {% extends 'jobs/base.html' %}
-  {% block content %}
-    <main role="main">
-        <div class="container">
-            <h1 class="text-center pt-3">{{ blog.title }}</h1>
-            <hr/>
-	{{ blog.pub_date }}
-	<br>
-  {%if blog.image %}
-	<img src="{{ blog.image.url }}">
-  {% endif %}
-	<br>
-	<br>
-	<div class="markdown">
-  {{ blog.body_md | safe }}
-  <div>
+{% extends 'jobs/base.html' %}
+{% block libraries %}
+{% if blog.highlightjs %}
+<link rel="stylesheet"
+      href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/atom-one-dark.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+{% endif %}
+{% if blog.leafletjs %}
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"></script>
+{% endif %}
+{% if blog.d3js %}
+<script src="https://d3js.org/d3.v5.min.js"></script>
+{% endif  %}
+{% if blog.topojsonjs %}
+<script src = "{% static 'js/lib/topojson.min.js' %}"></script>
+{% endif %}
+{%for estilo in blog.estilos%}
+<link rel="stylesheet" href={% static estilo%}>
+{% endfor %}
+{% endblock %}
 
-        </div>
-    </main>
-    {% endblock %}
+{% block content %}
+  <main role="main">
+    <div class="container">
+      <hr class="red">
+      <div id="featured-title">{{ blog.title }}</div>
+     	<div id="featured-date">{{ blog.pub_date }}</div>
+      <hr class="red"/>
+      {% if blog.rawBody %}
+      <div>{{blog.rawBody | safe }}</div>
+      {% endif %}
+      {%if blog.mdBody %}
+	    <div class="markdown">{{ blog.body_md | safe }}</div>
+      {%endif%}
+  </main>
+{% endblock %}
+{% block mycode %}
+{% if blog.mycode %}
+{% for codito in blog.mycode %}
+<script type="text/javascript" src={% static codito %}></script>
+{% endfor  %}
+{% endif %}
+{% endblock %}

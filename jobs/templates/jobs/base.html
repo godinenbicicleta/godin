@@ -6,14 +6,12 @@
     <meta name="description" content="Portfolio and Blog">
     <meta name="keywords" content="Python, PostgreSQL, PostGIS, GIS">
     <meta name="author" content="Bruno Carballo">
-    <link rel="stylesheet"
-      href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/atom-one-dark.min.css">
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
-
-    <script>hljs.initHighlightingOnLoad();</script>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" charset="utf-8">var STATIC_PATH = "{% static './' %}"</script>
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400" rel="stylesheet">
+    {% block libraries %}
+    {% endblock %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{page_title}}</title>
   </head>
   <body>
@@ -37,5 +35,7 @@
         <p>© Bruno Carballo {% now 'Y' %}</p>
       </div>
       </footer>
+  {% block mycode %}
+  {% endblock %}
   </body>
 </html>

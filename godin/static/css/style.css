@@ -9,7 +9,7 @@
   --tmargin:calc(var(--margin) * 3);
   --dmargin:calc(var(--margin) * 2);
   --minimargin:5px;
-  --gray:#575757;
+  --grey:#272727;
   --high:#FF4303;
   }
 
@@ -21,7 +21,7 @@
 
 html {
   font-size: 16px;
-  color:var(--gray);  
+  color:var(--grey);  
   }
 
 .item-title a{
@@ -103,7 +103,7 @@ p {
 }
 
 
-.navigation a , .grid-container a{
+.navigation a , .grid-container a {
   text-decoration: none;
   display: block;
   padding-bottom: 2px;
@@ -111,6 +111,9 @@ p {
   transition: all 0.2s ease;
 }
 
+.grid-container a{
+  color:var(--whiteblue);
+  }
 .navigation a{
   border-bottom: 2px solid var(--bgcolor);
   }
@@ -190,6 +193,7 @@ div.item-summary{
   flex-flow:row;
   padding:var(--margin);
   margin-bottom:var(--dmargin);
+  font-weight:300;
   }
 
 div.item-pubdate{
@@ -197,6 +201,28 @@ div.item-pubdate{
   text-align:right;
   margin:var(--margin);
   }
+
+div.featured-blog-container{
+  display:grid;
+  grid-template-columns:1fr;
+  margin-bottom:var(--margin);
+  justify-content:center;
+  font-weight:300;
+  }
+
+#featured-title{
+    font-size:30px;
+    font-weight:300;
+    color: var(--darkblue);
+    align-items:center;
+    display:flex;
+    margin-bottom:var(--margin);
+}
+
+#featured-summary{
+font-size:18px;
+}
+
 
 @media all and (max-width: 800px) {
   .navigation {
@@ -208,7 +234,7 @@ div.item-pubdate{
   }
 
 div.grid-container{
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: 1fr;
   }
 }
 
@@ -254,6 +280,25 @@ div.grid-container{
 div.grid-container{
   grid-template-columns: 1fr;
   }
+
+div.featured-blog-container{
+  grid-template-columns:1fr;
+  justify-content:center;
+  }
+#featured-title{
+  font-size:20px;
+  }
+
+#blog-header{
+  font-size:22px;
+  }
+
+#featured-summary{
+font-size:16px;
+}
+  html{
+    font-size:14px;
+    }
 }
 
 
@@ -275,8 +320,38 @@ hr.container {
   }
 
 hr {
-  margin-top: var(minimargin);
+  margin-top: var(--minimargin);
   margin-bottom:var(--dmargin);
   border-top:1px solid rgba(0,0,0,.1);
   }
 
+
+#featured-image{
+width:100%;
+height:auto;
+}
+
+.red {
+  border-top:1px solid var(--high);
+  }
+
+#featured-date{
+  font-weight:300;
+  text-align:end;
+  margin-top:var(--margin);
+  }
+
+.featured-blog-container a{
+ text-decoration: none;
+ color: var(--darkblue);
+}
+
+/* markdown */
+.markdown strong{
+  color:var(--high);
+  font-weight:300;
+  }
+
+.markdown p{
+  margin-bottom:var(--minimargin);
+  }

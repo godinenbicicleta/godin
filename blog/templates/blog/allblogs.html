@@ -4,8 +4,22 @@
   <div class="container">
     <h1 id="blog-header">Welcome to my Blog</h1>
     <hr>
+    <div class="featured-blog-container">
+      <div id="featured-title">
+      <a href="{% url 'detail' featured.id %}">{{ featured.title }}</a></div>
+      <div id="featured-image">
+        <a href="{% url 'detail' featured.id %}"><img src="{{ featured.get_image }}" alt="Featured Image" id="featured-image"></a>
+      </div>
+      <div id="featured-content">
+        <div id="featured-summary">
+          <div class="markdown">{{ featured.featured | safe }}</div>
+        </div>
+        <div id="featured-date">{{ featured.pub_date }}</div>
+      </div>
+    </div>
+    <hr class="red">
     <div class="grid-container">
-      {% for blog in blogs.all %}
+      {% for blog in blogs %}
       <div class = "item">
         <div class="item-title">
           <a href="{% url 'detail' blog.id %}">{{ blog.title }}</a>
@@ -14,7 +28,7 @@
           <p>{{ blog.pub_date }}</p>
         </div>
         <div class="item-summary">
-          <p>{{ blog.summary }}</p>
+          <div class="markdown">{{ blog.summary | safe }}</div>
         </div>
       </div>
       {% endfor %}

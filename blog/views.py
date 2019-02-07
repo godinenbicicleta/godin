@@ -2,10 +2,11 @@ from django.shortcuts import render, get_object_or_404
 from .models import Blog
 
 def allblogs(request):
-    blogs = Blog.objects
+    blogs = Blog.objects.all()[1:]
+    featured = Blog.objects.all()[0]
     page_title = 'Blog'
     return render(request, 'blog/allblogs.html', 
-    {'blogs': blogs, 'page_title':page_title }
+    {'featured':featured,'blogs': blogs, 'page_title':page_title }
     )
 
 def detail(request, blog_id):

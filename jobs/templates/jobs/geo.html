@@ -5,11 +5,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <script type="text/javascript" charset="utf-8">var STATIC_PATH = "{% static './' %}"</script>
-    <link rel="stylesheet" href="{% static 'leaflet.css' %}" />
-    <script src="{% static 'leaflet.js' %}"></script>
-    <link rel="stylesheet" type="text/css" href="{% static 'style_geo.css' %}">
-    <script src="{% static 'd3.min.js' %}"></script>
-    <script src = "{% static 'topojson.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/leaflet/leaflet.css' %}" />
+    <script src="{% static 'js/lib/leaflet.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/blog/style_geo.css' %}">
+    <script src="{% static 'js/lib/d3.min.js' %}"></script>
+    <script src = "{% static 'js/lib/topojson.min.js' %}"></script>
  </head>
   <body>
 	<!--Step navigation UI-->
@@ -32,25 +32,8 @@
 						</div>
 					</div>
 				</div>
-				<div id="tools" class="box sidebar2">
-          <div id="flex-container">
-            <div id="f1">
-              <div class="options">
-                <form action="javascript:handleIt">
-                  <input type="checkbox" name="points" id="show-points" checked>
-                  <span class="input-span">Points</span>
-                  <input type="checkbox" name="cloro" id="show-cloropleth" >
-                  <span class="input-span">Countries</span>
-                </form>
-              </div>
-            </div>
-            <div id="info">
-            <h4>Details</h4>
-            </div>
-          <div>
-        </div>
 			</div>
 		</div>
-		<script src="{% static 'code.js' %}"></script>
+		<script src="{% static 'js/mycode/code.js' %}"></script>
   </body>
 </html>
