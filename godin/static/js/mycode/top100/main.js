@@ -1,3 +1,13 @@
+/*
+d3+leaflet: https://bost.ocks.org/mike/leaflet/
+tooltip: https://gist.github.com/siyafrica/5807455bae654ffe89a0
+resposive svg: https://brendansudol.com/writing/responsive-d3
+slider:https://bl.ocks.org/mbostock/6452972
+*/
+
+
+
+
 //global variables
 let formattedData;
 let circChart;
