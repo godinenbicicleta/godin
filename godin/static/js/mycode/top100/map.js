@@ -25,6 +25,13 @@ class MapChart {
             .append("div")
             .attr("class", "tooltip");
 
+        //Create info div, hidden at start
+        vis.infoDiv = d3.select("#vis-canvas")
+            .append("div")
+            .attr("class", "info-div");
+
+        
+
         //Position of the tooltip relative to the cursor
         vis.tooltipOffset = { x: 5, y: -25 };
         
@@ -43,6 +50,16 @@ class MapChart {
                 & +vis.formatDate(d.properties.year)>= +vis.yearStart);}
             );
 
+            if(filterName){
+                vis.data = vis.data.filter(d=>{
+                    return d.properties.name ==filterName;
+                });
+            }
+            if(filterCat){
+                vis.data = vis.data.filter(d=>d.properties.cat.includes(filterCat));
+
+            }
+
             vis.updateVis();
         }
 
@@ -53,7 +70,7 @@ class MapChart {
 
             vis.comp = vis.g.selectAll("path")
                 .data(vis.data,
-                    d => d.properties.id); //add key
+                    d => d.properties.name); //add key
 
             //exit old elements not present in new data
             vis.comp.exit()
@@ -74,11 +91,50 @@ class MapChart {
 
             function showTooltip(d) {
                 moveTooltip();
-                vis.tooltip.style("color", "black")
+                vis.tooltip
                     .html(`<p>${d.properties.name}</p>`)
                     .transition()
                     .duration(500)
                     .style("display", "flex");
+
+                    /*
+    name: p.name , website: p.website ,
+    category: p.category, "location": p.location,
+    date:p.fecha, info:p.info,
+     employees:p.employees, tech:p.tech, companies_partner:p.companies_partner,
+      problem_to_solve:p.problem_to_solve,
+     value_ideal_customer:p.value_ideal_customer,
+      "status":p.status, year:+p.year_,
+     cat:p.cat.split(","),cx:c_x, cy:c_y,"id":i
+                    */
+
+                vis.infoDiv
+                    .html(`
+                    <span id ="close-info" class="close"></span>
+                    <div style="display:grid;grid-template-columns: 1fr 1fr;justify-content:center;align-items: center;align-content: center;margin-bottom:5px">
+                    <div style="display:flex;justify-content:center;">
+                    <p class="info-div-name" >${d.properties.name}</p>
+                    </div>
+                    <div>
+                    <p>${d.properties["location"]}</p>
+                    <p >${d.properties.date}</p>
+                    <p ><span class="label-info-div"></span>${d.properties.employees} employees</p>
+
+                    <p ><a href=${d.properties.website} target="_blank">${d.properties.website}</a></p>
+                    </div>
+                    </div>
+                    <p style="margin-bottom:5px;"><span class="label-info-div">Categories:</span>${d.properties.category}</p>
+                    <p style="margin-bottom:5px;"><span class="label-info-div">Tech: </span>${d.properties.tech}</p>
+                    <p style="margin-bottom:5px;"><span class="label-info-div">Status: </span>${d.properties.status}</p>
+                    `)
+                    .transition()
+                    .duration(500)
+                    .style("display", "flex");
+                
+                document.getElementById("close-info").addEventListener("click",
+                    function(){
+                      vis.infoDiv.style("display", "none");
+                    })
             }
             function moveTooltip() {
                 vis.tooltip.style("top", (d3.event.pageY + vis.tooltipOffset.y) + "px")

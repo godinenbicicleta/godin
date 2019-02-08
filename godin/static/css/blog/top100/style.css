@@ -41,7 +41,7 @@ path.points {
   color:var(--ahover);
   position: relative;
   width: 100%;
-  height: 700px;
+  height: 60vh;
 }
 
 #vis-canvas {
@@ -76,13 +76,90 @@ path.points {
     padding-left: 5px;
     padding-right: 5px;
     font-size: 12px;		
-    background: rgba(255,255,255,0.8);
-    border: 1px solid black;
+    background: var(--bgcolor);
+    opacity:0.8;
+    border: 1px solid rgb(26, 26, 26);
     border-radius: 8px;			
     color:var(--ahover);
     display:none;
     align-items: center;
 }
+
+/*
+infodiv
+*/
+
+div.info-div {	
+  z-index:20000;			
+  position:absolute;
+  bottom:18px;
+  right:0px;
+padding:5px;
+  font-size: 14px;		
+  background: var(--bgcolor);
+  opacity:0.9;
+  border: 1px solid rgb(26, 26, 26);
+  border-radius: 8px;			
+  color: var(--grey);
+  display:none;
+  flex-flow:column;
+  max-width:400px;
+  font-weight:300;
+}
+
+.info-div-name{
+  font-size:20px;
+  color:var(--high);
+  font-weight:400;
+}
+.label-info-div{
+  font-weight:400;
+  color:rgb(27, 27, 27);
+  font-size:14px;
+}
+
+/*close button*/
+.close {
+  position: absolute;
+  right: 2px;
+  top: 2px;
+  width: 25px;
+  height: 32px;
+  opacity: 0.3;
+}
+.close:hover {
+  opacity: 1;
+}
+.close:before, .close:after {
+  position: absolute;
+  left: 15px;
+  top: 2px;
+  content: ' ';
+  height: 15px;
+  width: 2px;
+  background-color: #333;
+}
+.close:before {
+  transform: rotate(45deg);
+}
+.close:after {
+  transform: rotate(-45deg);
+}
+
+/*
+    z-index: 20000;
+    position: absolute;
+    bottom: 18px;
+    right: 0px;
+    max-width: 300px;
+    padding-left: 5px;
+    padding-right: 5px;
+    font-size: 12px;
+    background: rgba(255,255,255,0.8);
+    border: 1px solid rgb(26, 26, 26);
+    border-radius: 8px;
+*/
+
 /*date slider
 */
 
@@ -247,4 +324,97 @@ ul li ul li {
 
 .add-margin-top{
   margin-top:var(--margin);
+}
+
+
+/*
+Autocomplete
+https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_autocomplete
+*/
+
+/*the container must be positioned relative:*/
+.autocomplete {
+  position: relative;
+  display: inline-block;
+}
+
+input {
+  border: 1px solid transparent;
+  background-color: var(--whiteblue);
+  padding: 10px;
+
+}
+
+input[type=text] {
+  background-color: var(--whiteblue);
+  width: 100%;
+}
+
+input[type=submit] {
+  background-color: var(--blue);
+  color: #fff;
+  cursor: pointer;
+}
+
+.autocomplete-items {
+  position: absolute;
+  border: 1px solid #d4d4d4;
+  border-bottom: none;
+  border-top: none;
+  z-index: 99;
+  /*position the autocomplete items to be the same width as the container:*/
+  top: 100%;
+  left: 0;
+  right: 0;
+  max-height:200px;
+  overflow-y:scroll;
+}
+
+.autocomplete-items div {
+  padding: 10px;
+  cursor: pointer;
+  background-color: #fff; 
+  border-bottom: 1px solid #d4d4d4; 
+}
+
+/*when hovering an item:*/
+.autocomplete-items div:hover {
+  background-color: #e9e9e9; 
+}
+
+/*when navigating through the items using the arrow keys:*/
+.autocomplete-active {
+  background-color: var(--blue) ; 
+  color: var(--darkblue); 
+}
+
+#auto-complete-container{
+  margin-bottom:5px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.autocomplete{
+  width:200px;
+
+}
+
+@media  only screen  and (max-width: 600px){
+  #auto-complete-container{
+    margin-bottom:5px;
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+    font-size:12px;
+    justify-content: center;
+    align-items:center;
+    align-content: center;
+  }
+  .autocomplete{
+    width:150px;
+    margin-bottom:5px;
+    
+
+
+  }
 }
