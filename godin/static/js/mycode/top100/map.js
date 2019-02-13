@@ -2,8 +2,8 @@
 class MapChart {
     constructor(_parentElement) {
         this.parentElement = _parentElement;
-        this.formatDate = d3.timeFormat("%Y");
         this.formatDate = d3.timeParse("%Y");
+
     
         this.initVis();
         
@@ -44,10 +44,12 @@ class MapChart {
             vis.yearStart = vis.formatDate(document.getElementById("dateLabel1").innerText);;
             vis.yearEnd = vis.formatDate(document.getElementById("dateLabel2").innerText);;
             vis.data = formattedData.features.filter(d => 
-                { return d.geometry; }).filter(d=>{
-
-                return (+vis.formatDate(d.properties.year)<= +vis.yearEnd 
-                & +vis.formatDate(d.properties.year)>= +vis.yearStart);}
+                { return (
+                        d.geometry && 
+                        (+vis.formatDate(d.properties.year)<= +vis.yearEnd)
+                        && (+vis.formatDate(d.properties.year)>= +vis.yearStart)); 
+                
+                }
             );
 
             if(filterName){
@@ -83,19 +85,19 @@ class MapChart {
                 .attr("class", "points")
                 .style("fill-opacity", 0.7)
                 .on("click", showTooltip)
-                .on("mousemove", moveTooltip)
-                .on("mouseout", hideTooltip)
+                //.on("mousemove", moveTooltip)
+                //.on("mouseout", hideTooltip)
                 //UPDATE old elements present in new data
                 .merge(vis.comp)
                 .attr("d", vis.path);
 
             function showTooltip(d) {
-                moveTooltip();
-                vis.tooltip
-                    .html(`<p>${d.properties.name}</p>`)
-                    .transition()
-                    .duration(500)
-                    .style("display", "flex");
+                //moveTooltip();
+                //vis.tooltip
+                  //  .html(`<p>${d.properties.name}</p>`)
+                    //.transition()
+                   // .duration(500)
+                   // .style("display", "flex");
 
                     /*
     name: p.name , website: p.website ,
@@ -111,11 +113,11 @@ class MapChart {
                 vis.infoDiv
                     .html(`
                     <span id ="close-info" class="close"></span>
-                    <div style="display:grid;grid-template-columns: 1fr 1fr;justify-content:center;align-items: center;align-content: center;margin-bottom:5px">
+                    <div style="display:grid;grid-template-columns: 1fr 1fr;justify-content:center;align-items: center;align-content:center;margin-bottom:5px;">
                     <div style="display:flex;justify-content:center;">
                     <p class="info-div-name" >${d.properties.name}</p>
                     </div>
-                    <div>
+                    <div style="margin-right:2px;">
                     <p>${d.properties["location"]}</p>
                     <p >${d.properties.date}</p>
                     <p ><span class="label-info-div"></span>${d.properties.employees} employees</p>

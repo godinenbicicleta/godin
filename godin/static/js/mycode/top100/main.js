@@ -15,8 +15,10 @@ let numNodes;
 let radius_ = 360;
 let diameter_ = radius_ * 2;
 let categorySelected;
+let keyDown = false;
+let imputed = false;
 
-let filterCat="";
+let filterCat = "";
 let divi;
 let names = [];
 let idArray = [];
@@ -48,6 +50,63 @@ lilis.on("click", function () {
     .style("color", "var(--high)");
 });
 
+//filter name dropdown
+document.getElementById("myInput").addEventListener("click", function (e) {
+  autocompleteName.clicked = true;
+  autocompleteName.wrangleData(e);
+ 
+});
+document.getElementById("myInput").addEventListener("input", function (e) {
+  autocompleteName.clicked = true;
+  autocompleteName.currentFocus = -1;
+  autocompleteName.wrangleData(e);
+});
+
+document.getElementById("myInput").addEventListener("keydown", function (e) {
+  autocompleteName.clicked = false;
+  keyDown = true;
+  autocompleteName.wrangleData(e);
+  keyDown = false;
+});
+
+
+document.addEventListener("click", function (e) {
+  autocompleteName.closeAllLists(e.target);
+
+});
+
+
+document.addEventListener("keydown", function (e) {
+  if (e.key == "Escape") {
+    autocompleteName.closeAllLists(document.body);
+  }
+});
+
+
+//filter cat dropdown
+
+
+document.getElementById("myInput2").addEventListener("click", function (e) {
+  autocompleteCat.clicked = true;
+  autocompleteCat.wrangleData(e);
+ 
+});
+document.getElementById("myInput2").addEventListener("input", function (e) {
+  autocompleteCat.clicked = true;
+  autocompleteCat.currentFocus = -1;
+  autocompleteCat.wrangleData(e);
+});
+
+document.getElementById("myInput2").addEventListener("keydown", function (e) {
+  autocompleteCat.clicked = false;
+  keyDown = true;
+  autocompleteCat.wrangleData(e);
+  keyDown = false;
+});
+
+
+
+
 //filter by name of company
 document.getElementById("filter-name").addEventListener("click", function () {
   filterName = document.getElementById("myInput").value;
@@ -64,6 +123,7 @@ document.getElementById("reset-filter-name").addEventListener("click", function 
 //filter by category
 document.getElementById("filter-category").addEventListener("click", function () {
   filterCat = catMap[document.getElementById("myInput2").value];
+  console.log(filterCat);
   mapChart.wrangleData();
 });
 
@@ -125,8 +185,8 @@ function main(data) {
 
 
   formattedData = toPoints(data);
-  autocomplete(document.getElementById("myInput"), names, true);
-  autocomplete(document.getElementById("myInput2"), catArray, false);
+  autocompleteName = new AutoComplete("myInput", "name");
+  autocompleteCat = new AutoComplete("myInput2", "cat");
   mapChart = new MapChart("#map");
 
   map.on("moveend", update);
@@ -190,153 +250,6 @@ function toPoints(data) {
 
 
 
-function autocomplete(inp, arr, boli) {
-  /*the autocomplete function takes two arguments,
-  the text field element and an array of possible autocompleted values:*/
-  var currentFocus;
-  /*execute a function when someone writes in the text field:*/
-  inp.addEventListener("input", function (e) {
-    var a, b, i, val = this.value;
-    /*close any already open lists of autocompleted values*/
-    closeAllLists();
-    //if (!val) { return false;}
-    currentFocus = -1;
-    /*create a DIV element that will contain the items (values):*/
-    a = document.createElement("DIV");
-    a.setAttribute("id", this.id + "autocomplete-list");
-    a.setAttribute("class", "autocomplete-items");
-    /*append the DIV element as a child of the autocomplete container:*/
-    this.parentNode.appendChild(a);
-    /*for each item in the array...*/
-    for (i = 0; i < arr.length; i++) {
-      /*check if the item starts with the same letters as the text field value:*/
-      if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase() || !val) {
-        /*create a DIV element for each matching element:*/
-        b = document.createElement("DIV");
-        /*make the matching letters bold:*/
-        b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
-        b.innerHTML += arr[i].substr(val.length);
-        /*insert a input field that will hold the current array item's value:*/
-        b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
-        /*execute a function when someone clicks on the item value (DIV element):*/
-        b.addEventListener("click", function (e) {
-          /*insert the value for the autocomplete text field:*/
-          inp.value = this.getElementsByTagName("input")[0].value;
-          /*close the list of autocompleted values,
-          (or any other open lists of autocompleted values:*/
-          closeAllLists();
-        });
-        a.appendChild(b);
-      }
-    }
-  });
-
-  inp.addEventListener("click", function (e) {
-    var a, b, i, val = this.value;
-    /*close any already open lists of autocompleted values*/
-    closeAllLists();
-    
-    currentFocus = -1;
-    /*create a DIV element that will contain the items (values):*/
-    a = document.createElement("DIV");
-
-    a.setAttribute("id", this.id + "autocomplete-list");
-    a.setAttribute("class", "autocomplete-items");
-    /*append the DIV element as a child of the autocomplete container:*/
-    this.parentNode.appendChild(a);
-    /*for each item in the array...*/
-    for (i = 0; i < arr.length; i++) {
-      /*create a DIV element for each matching element:*/
-      b = document.createElement("DIV");
-      /*make the matching letters bold:*/
-      b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
-      b.innerHTML += arr[i].substr(val.length);
-      /*insert a input field that will hold the current array item's value:*/
-      b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
-      /*execute a function when someone clicks on the item value (DIV element):*/
-      b.addEventListener("click", function (e) {
-        /*insert the value for the autocomplete text field:*/
-        inp.value = this.getElementsByTagName("input")[0].value;
-        /*close the list of autocompleted values,
-        (or any other open lists of autocompleted values:*/
-        closeAllLists();
-      });
-      a.appendChild(b);
-
-    }
-  });
-
-  /*execute a function presses a key on the keyboard:*/
-  inp.addEventListener("keydown", function (e) {
-    var x = document.getElementById(this.id + "autocomplete-list");
-    if (x) x = x.getElementsByTagName("div");
-    if (e.key == "ArrowDown") {
-      /*If the arrow DOWN key is pressed,
-      increase the currentFocus variable:*/
-      currentFocus++;
-      /*and and make the current item more visible:*/
-      addActive(x);
-    } else if (e.key == "ArrowUp") { //up
-      /*If the arrow UP key is pressed,
-      decrease the currentFocus variable:*/
-      currentFocus--;
-      /*and and make the current item more visible:*/
-      addActive(x);
-    } else if (e.key == "Enter") {
-      /*If the ENTER key is pressed, prevent the form from being submitted,*/
-      e.preventDefault();
-      if (currentFocus > -1) {
-        /*and simulate a click on the "active" item:*/
-        if (x) x[currentFocus].click();
-      }
-    }
-  });
-  function addActive(x) {
-    /*a function to classify an item as "active":*/
-    if (!x) return false;
-    /*start by removing the "active" class on all items:*/
-    removeActive(x);
-    if (currentFocus >= x.length) currentFocus = 0;
-    if (currentFocus < 0) currentFocus = (x.length - 1);
-    /*add class "autocomplete-active":*/
-    x[currentFocus].classList.add("autocomplete-active");
-  }
-  function removeActive(x) {
-    /*a function to remove the "active" class from all autocomplete items:*/
-    for (var i = 0; i < x.length; i++) {
-      x[i].classList.remove("autocomplete-active");
-    }
-  }
-  function closeAllLists(elmnt) {
-    /*close all autocomplete lists in the document,
-    except the one passed as an argument:*/
-    var x = document.getElementsByClassName("autocomplete-items");
-    for (var i = 0; i < x.length; i++) {
-
-      if (elmnt != x[i] && (
-        elmnt != inp && elmnt != document.getElementById("myInput2")
-        )
-        ) {
-        x[i].parentNode.removeChild(x[i]);
-
-      }
-    }
-  }
-  /*execute a function when someone clicks in the document:*/
-
-  if (boli) {
-    document.addEventListener("click", function (e) {
-      closeAllLists(e.target);
-
-    });
-
-    document.addEventListener("keydown", function (e) {
-      if (e.key == "Escape") {
-        closeAllLists(document.body);
-      }
-    });
-  }
-}
 
 
 let catArray = ["3d technology",
@@ -393,4 +306,4 @@ let catArray = ["3d technology",
 
 
 
-  let catMap = {"3d technology": "3d technology", "3d visualization": "3d visualization", "Activation": "activation", "Agriculture": "agriculture", "Apps": "apps", "Architecture": "architecture", "Asset tracking": "asset tracking", "Augmented reality": "augmented reality", "Autonomous driving": "autonomous driving", "Blockchain": "blockchain", "Centimeter-accurate gnss sensors for autonomous vehicles": "centimeter-accurate gnss sensors for autonomous vehicles", "Climate risk management (for cities and supply chains)": "climate risk management (for cities and supply chains)", "Commodity risk monitoring": "commodity risk monitoring", "Computer vision": "computer vision", "Construction": "construction", "Decentralization": "decentralization", "Developer tools for the mobility market": "developer tools for the mobility market", "Drone": "drone", "Drones": "drones", "Engineering software": "engineering software", "Gis": "gis", "Gis software development": "gis software development", "Human geography": "human geography", "Indoor mapping": "indoor mapping", "Infrastructure": "infrastructure", "Insurance underwriting/catastrophe modeling/flood certification": "insurance underwriting/catastrophe modeling/flood certification", "Internet of things": "internet of things", "Location data analytics": "location data analytics", "Location intelligence": "location intelligence", "Location-based marketing": "location-based marketing", "Map provider": "map provider", "Mapping": "mapping", "Maps": "maps", "Mobility": "mobility", "Monitoring and evaluation": "monitoring and evaluation", "Navigation": "navigation", "Photogrammetry": "photogrammetry", "Prioritized deforestation alerts": "prioritized deforestation alerts", "Remote sensing": "remote sensing", "Spatial data infrastructure": "spatial data infrastructure", "Surveying": "surveying", "Telco infrastructure planning": "telco infrastructure planning", "Telecommunication": "telecommunication", "Telecommunications": "telecommunications", "Transportation": "transportation", "Urban planning": "urban planning"}
+let catMap = { "3d technology": "3d technology", "3d visualization": "3d visualization", "Activation": "activation", "Agriculture": "agriculture", "Apps": "apps", "Architecture": "architecture", "Asset tracking": "asset tracking", "Augmented reality": "augmented reality", "Autonomous driving": "autonomous driving", "Blockchain": "blockchain", "Centimeter-accurate gnss sensors for autonomous vehicles": "centimeter-accurate gnss sensors for autonomous vehicles", "Climate risk management (for cities and supply chains)": "climate risk management (for cities and supply chains)", "Commodity risk monitoring": "commodity risk monitoring", "Computer vision": "computer vision", "Construction": "construction", "Decentralization": "decentralization", "Developer tools for the mobility market": "developer tools for the mobility market", "Drone": "drone", "Drones": "drones", "Engineering software": "engineering software", "Gis": "gis", "Gis software development": "gis software development", "Human geography": "human geography", "Indoor mapping": "indoor mapping", "Infrastructure": "infrastructure", "Insurance underwriting/catastrophe modeling/flood certification": "insurance underwriting/catastrophe modeling/flood certification", "Internet of things": "internet of things", "Location data analytics": "location data analytics", "Location intelligence": "location intelligence", "Location-based marketing": "location-based marketing", "Map provider": "map provider", "Mapping": "mapping", "Maps": "maps", "Mobility": "mobility", "Monitoring and evaluation": "monitoring and evaluation", "Navigation": "navigation", "Photogrammetry": "photogrammetry", "Prioritized deforestation alerts": "prioritized deforestation alerts", "Remote sensing": "remote sensing", "Spatial data infrastructure": "spatial data infrastructure", "Surveying": "surveying", "Telco infrastructure planning": "telco infrastructure planning", "Telecommunication": "telecommunication", "Telecommunications": "telecommunications", "Transportation": "transportation", "Urban planning": "urban planning" }

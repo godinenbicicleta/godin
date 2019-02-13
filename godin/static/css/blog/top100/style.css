@@ -339,9 +339,10 @@ https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_autocomplete
 }
 
 input {
+  font-size:13px;
   border: 1px solid transparent;
   background-color: var(--whiteblue);
-  padding: 10px;
+  padding: 4px;
 
 }
 
@@ -366,6 +367,7 @@ input[type=submit] {
   top: 100%;
   left: 0;
   right: 0;
+  font-size:14px;
   max-height:200px;
   overflow-y:scroll;
 }
@@ -405,16 +407,40 @@ input[type=submit] {
     display: flex;
     flex-flow: column;
     justify-content: space-between;
-    font-size:12px;
+    font-size:14px;
     justify-content: center;
     align-items:center;
     align-content: center;
   }
   .autocomplete{
     width:150px;
-    margin-bottom:5px;
+    margin-bottom:5px;}
+
+    div.info-div {	
+      font-size: 11px;		
+      background: var(--bgcolor);
+      opacity:0.9;
+      border: 1px solid rgb(26, 26, 26);
+      border-radius: 8px;			
+      color: var(--grey);
+      display:none;
+      flex-flow:column;
+      max-width:300px;
+      font-weight:300;
+    }
     
+    .info-div-name{
+      font-size:14px;
+      color:var(--high);
+      font-weight:400;
+    }
+    .label-info-div{
+      font-weight:400;
+      color:rgb(27, 27, 27);
+      font-size:12px;
+    }
 
 
-  }
+
+
 }
