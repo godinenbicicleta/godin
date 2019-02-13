@@ -317,6 +317,10 @@ ul li ul li {
   margin-bottom:var(--margin);
 }
 
+blog-text strong{
+  color: var(--high);
+}
+
 .blog-text p{
   margin-bottom:var(--margin);
   font-weight:300;
