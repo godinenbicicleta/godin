@@ -319,6 +319,7 @@ ul li ul li {
 
 .blog-text strong{
   color: var(--high);
+  font-weight:300;
 }
 
 .blog-text p{
