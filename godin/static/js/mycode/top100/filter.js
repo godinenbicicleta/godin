@@ -47,10 +47,8 @@ class AutoComplete {
             vis.data = vis.data.map(d => d.properties.name);
         }
         else {
-            console.log('toda la data',vis.data);
             vis.data = catArray.filter(
                 d => [].concat(...vis.data.map(d=>d.properties.cat)).includes(catMap[d]));
-            console.log('categorias',vis.data);
         }
         if(e ){
           vis.update(e);

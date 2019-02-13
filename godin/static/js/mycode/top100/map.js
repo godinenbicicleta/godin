@@ -110,6 +110,8 @@ class MapChart {
      cat:p.cat.split(","),cx:c_x, cy:c_y,"id":i
                     */
 
+               
+
                 vis.infoDiv
                     .html(`
                     <span id ="close-info" class="close"></span>

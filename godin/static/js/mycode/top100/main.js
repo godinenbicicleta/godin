@@ -79,6 +79,7 @@ document.addEventListener("click", function (e) {
 document.addEventListener("keydown", function (e) {
   if (e.key == "Escape") {
     autocompleteName.closeAllLists(document.body);
+    //mapChart.infoDiv.style("display", "none");
   }
 });
 
@@ -123,7 +124,6 @@ document.getElementById("reset-filter-name").addEventListener("click", function 
 //filter by category
 document.getElementById("filter-category").addEventListener("click", function () {
   filterCat = catMap[document.getElementById("myInput2").value];
-  console.log(filterCat);
   mapChart.wrangleData();
 });
 
