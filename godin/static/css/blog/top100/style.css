@@ -317,7 +317,7 @@ ul li ul li {
   margin-bottom:var(--margin);
 }
 
-blog-text strong{
+.blog-text strong{
   color: var(--high);
 }
 
